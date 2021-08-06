@@ -107,13 +107,6 @@ public class Reimbursement {
 		this.amount = amount;
 		this.typeNum = reimburseType;
 	}
-	
-	public Reimbursement(String username, int status, int id) {
-		super();
-		this.username = username;
-		this.statusNum = status;
-		this.id = id;
-	}
 
 
 	public int getId() {

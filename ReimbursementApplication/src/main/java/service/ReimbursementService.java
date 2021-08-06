@@ -45,19 +45,4 @@ public class ReimbursementService implements ReimbursementServiceInterface{
 		return dao.userReimbursement(name);
 	}
 
-	@Override
-	public List<Reimbursement> userDeclined(String name) {
-		return dao.userDeclined(name);
-	}
-
-	@Override
-	public List<Reimbursement> userPending(String name) {
-		return dao.userPending(name);
-	}
-
-	@Override
-	public List<Reimbursement> userAccepted(String name) {
-		return dao.userAccepted(name);
-	}
-
 }

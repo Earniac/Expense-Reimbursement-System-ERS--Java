@@ -20,10 +20,4 @@ public interface ReimbursementDaoInterface {
 	public List<Reimbursement> allReimbursement();
 
 	public List<Reimbursement> userReimbursement(String name);
-	
-	public List<Reimbursement> userDeclined(String name);
-	
-	public List<Reimbursement> userAccepted(String name);
-	
-	public List<Reimbursement> userPending(String name);
 }
