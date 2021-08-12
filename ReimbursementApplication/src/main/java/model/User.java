@@ -11,10 +11,9 @@ public class User {
 	private String email;
 	private int role;
 	
-	
+	////////////////////////////////////////////////////////Constructor\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	public User() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 
@@ -79,6 +78,7 @@ public class User {
 	}
 
 
+	////////////////////////////////////////////////////////Getters and Setters\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	public String getUsername() {
 		return username;
 	}
@@ -148,6 +148,8 @@ public class User {
 		this.role = role;
 	}
 
+	
+	////////////////////////////////////////////////////////ToString()\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 	@Override
 	public String toString() {

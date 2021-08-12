@@ -7,14 +7,17 @@ import model.User;
 public class UserService implements UserServiceInterface{
 
 	UserDaoInterface dao = new UserDao();
-	@Override
-	public boolean createAcc(User user) {
-		return dao.createAcc(user);
-	}
 
+	//logs a user into an existing account
 	@Override
 	public boolean login(User user) {
 		return dao.login(user);
+	}
+
+	//determines the type of employee logging into an account
+	@Override
+	public int employeeType(String username) {
+		return dao.employeeType(username);
 	}
 
 }

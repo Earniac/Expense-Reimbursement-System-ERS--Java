@@ -9,24 +9,22 @@ import java.util.List;
 
 import model.Reimbursement;
 
-public class ReimbursementDao implements ReimbursementDaoInterface{
+public class ReimbursementDao implements ReimbursementDaoInterface {
 
-//	public static void main(String[] args) {
-//		
-//		ReimbursementDao dao = new ReimbursementDao();
-//		
-//		System.out.println(dao.createReim(new Reimbursement(2500,"testing","earniac",2)));
-//	}
-	
-	static { 
-	      try {
-	          Class.forName("org.postgresql.Driver");
-	      }catch(ClassNotFoundException e) {
-	          e.printStackTrace();
-	          System.out.println("Static block has failed me");
-	      }
+	/*
+	 * This static method connects to the JDBC driver
+	 */
+	static {
+		try {
+			Class.forName("org.postgresql.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
-	
+
+	/*
+	 * This method creates a reimbursement request
+	 */
 	public boolean createReim(Reimbursement reim) {
 
 		try (Connection conn = CustomConnectionFactory.getConnection()) {
@@ -46,7 +44,6 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-//			loggy.error("A SQL exception was thrown: ", e);
 			return false;
 
 		}
@@ -54,6 +51,9 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 		return true;
 	}
 
+	/*
+	 * This method updates a reimbursement request
+	 */
 	public boolean updateReim(Reimbursement reim) {
 
 		try (Connection conn = CustomConnectionFactory.getConnection()) {
@@ -73,7 +73,6 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-//		loggy.error("A SQL exception was thrown: ", e);
 			return false;
 
 		}
@@ -81,6 +80,9 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 		return true;
 	}
 
+	/*
+	 * This method shows all pending reimbursement request
+	 */
 	public List<Reimbursement> allPending() {
 
 		List<Reimbursement> list = new ArrayList<>();
@@ -109,6 +111,9 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 		return list;
 	}
 
+	/*
+	 * This method shows all accepted reimbursement request
+	 */
 	public List<Reimbursement> allAccepted() {
 
 		List<Reimbursement> list = new ArrayList<>();
@@ -137,6 +142,9 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 		return list;
 	}
 
+	/*
+	 * This method shows all declined reimbursement request
+	 */
 	public List<Reimbursement> allDeclined() {
 
 		List<Reimbursement> list = new ArrayList<>();
@@ -164,65 +172,164 @@ public class ReimbursementDao implements ReimbursementDaoInterface{
 
 		return list;
 	}
-	
-	
-public List<Reimbursement> allReimbursement() {
-		
+
+	/*
+	 * This method shows all reimbursement request
+	 */
+	public List<Reimbursement> allReimbursement() {
+
 		List<Reimbursement> list = new ArrayList<>();
 
-		
 		try (Connection conn = CustomConnectionFactory.getConnection()) {
 
 			String sql = "SELECT * FROM view_reimbursement;";
-			
+
 			PreparedStatement ps = conn.prepareStatement(sql);
 
-			ResultSet rs = ps.executeQuery(); 
+			ResultSet rs = ps.executeQuery();
 
-			while(rs.next()) {
-				list.add(new Reimbursement(rs.getInt("Case ID"),rs.getString("First Name"),rs.getString("Last Name"),rs.getString("Username"),
-						rs.getString("E-Mail"),rs.getString("Employee Role"),rs.getString("Reimbursement Type"),rs.getString("Reimbursement Description"),
-						rs.getInt("Reimbursement Amount"),rs.getString("status"),rs.getString("Resolved By"),
-						rs.getString("Time Submitted"),rs.getString("Resolved Time")));
+			while (rs.next()) {
+				list.add(new Reimbursement(rs.getInt("Case ID"), rs.getString("First Name"), rs.getString("Last Name"),
+						rs.getString("Username"), rs.getString("E-Mail"), rs.getString("Employee Role"),
+						rs.getString("Reimbursement Type"), rs.getString("Reimbursement Description"),
+						rs.getInt("Reimbursement Amount"), rs.getString("status"), rs.getString("Resolved By"),
+						rs.getString("Time Submitted"), rs.getString("Resolved Time")));
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
-		
+
 		return list;
 	}
 
+	/*
+	 * This method shows a user's reimbursement request
+	 */
+	public List<Reimbursement> userReimbursement(String name) {
 
-public List<Reimbursement> userReimbursement(String name) {
-	
-	List<Reimbursement> list = new ArrayList<>();
+		List<Reimbursement> list = new ArrayList<>();
 
-	
-	try (Connection conn = CustomConnectionFactory.getConnection()) {
+		try (Connection conn = CustomConnectionFactory.getConnection()) {
 
-		String sql = "SELECT * FROM view_reimbursement WHERE \"Username\" = ?;";
-		
-		PreparedStatement ps = conn.prepareStatement(sql);
-		ps.setString(1, name);
+			String sql = "SELECT * FROM view_reimbursement WHERE \"Username\" = ?;";
 
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, name);
 
-		ResultSet rs = ps.executeQuery(); 
+			ResultSet rs = ps.executeQuery();
 
-		while(rs.next()) {
-			list.add(new Reimbursement(rs.getInt("Case ID"),rs.getString("First Name"),rs.getString("Last Name"),rs.getString("Username"),
-					rs.getString("E-Mail"),rs.getString("Employee Role"),rs.getString("Reimbursement Type"),rs.getString("Reimbursement Description"),
-					rs.getInt("Reimbursement Amount"),rs.getString("status"),rs.getString("Resolved By"),
-					rs.getString("Time Submitted"),rs.getString("Resolved Time")));
+			while (rs.next()) {
+				list.add(new Reimbursement(rs.getInt("Case ID"), rs.getString("First Name"), rs.getString("Last Name"),
+						rs.getString("Username"), rs.getString("E-Mail"), rs.getString("Employee Role"),
+						rs.getString("Reimbursement Type"), rs.getString("Reimbursement Description"),
+						rs.getInt("Reimbursement Amount"), rs.getString("status"), rs.getString("Resolved By"),
+						rs.getString("Time Submitted"), rs.getString("Resolved Time")));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
 		}
 
-	} catch (SQLException e) {
-		e.printStackTrace();
-		return null;
+		return list;
 	}
-	
-	return list;
-}
+
+	/*
+	 * This method shows a user's pending reimbursement requests
+	 */
+	public List<Reimbursement> userPending(String name) {
+
+		List<Reimbursement> list = new ArrayList<>();
+
+		try (Connection conn = CustomConnectionFactory.getConnection()) {
+
+			String sql = "SELECT * FROM view_reimbursement WHERE \"Username\" = ? AND status = 'Pending';";
+
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, name);
+
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				list.add(new Reimbursement(rs.getInt("Case ID"), rs.getString("First Name"), rs.getString("Last Name"),
+						rs.getString("Username"), rs.getString("E-Mail"), rs.getString("Employee Role"),
+						rs.getString("Reimbursement Type"), rs.getString("Reimbursement Description"),
+						rs.getInt("Reimbursement Amount"), rs.getString("status"), rs.getString("Resolved By"),
+						rs.getString("Time Submitted"), rs.getString("Resolved Time")));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		return list;
+	}
+
+	/*
+	 * This method shows a user's accepted reimbursement requests
+	 */
+	public List<Reimbursement> userAccepted(String name) {
+
+		List<Reimbursement> list = new ArrayList<>();
+
+		try (Connection conn = CustomConnectionFactory.getConnection()) {
+
+			String sql = "SELECT * FROM view_reimbursement WHERE \"Username\" = ? AND status = 'Accepted';";
+
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, name);
+
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				list.add(new Reimbursement(rs.getInt("Case ID"), rs.getString("First Name"), rs.getString("Last Name"),
+						rs.getString("Username"), rs.getString("E-Mail"), rs.getString("Employee Role"),
+						rs.getString("Reimbursement Type"), rs.getString("Reimbursement Description"),
+						rs.getInt("Reimbursement Amount"), rs.getString("status"), rs.getString("Resolved By"),
+						rs.getString("Time Submitted"), rs.getString("Resolved Time")));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		return list;
+	}
+
+	/*
+	 * This method shows a user's declined reimbursement requests
+	 */
+	public List<Reimbursement> userDeclined(String name) {
+
+		List<Reimbursement> list = new ArrayList<>();
+
+		try (Connection conn = CustomConnectionFactory.getConnection()) {
+
+			String sql = "SELECT * FROM view_reimbursement WHERE \"Username\" = ? AND status = 'Declined';";
+
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, name);
+
+			ResultSet rs = ps.executeQuery();
+
+			while (rs.next()) {
+				list.add(new Reimbursement(rs.getInt("Case ID"), rs.getString("First Name"), rs.getString("Last Name"),
+						rs.getString("Username"), rs.getString("E-Mail"), rs.getString("Employee Role"),
+						rs.getString("Reimbursement Type"), rs.getString("Reimbursement Description"),
+						rs.getInt("Reimbursement Amount"), rs.getString("status"), rs.getString("Resolved By"),
+						rs.getString("Time Submitted"), rs.getString("Resolved Time")));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		return list;
+	}
 
 }

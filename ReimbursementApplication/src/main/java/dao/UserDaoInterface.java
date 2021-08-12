@@ -5,7 +5,10 @@ import model.User;
 
 public interface UserDaoInterface {
 
-	public boolean createAcc(User user);
-
+	//logs a user into an account
 	public boolean login(User user);
+	
+	//determines the kind of employee
+	public int employeeType(String username);
+
 }

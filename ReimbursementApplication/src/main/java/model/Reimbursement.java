@@ -20,9 +20,9 @@ public class Reimbursement {
 	private String resolved_time;
 	
 	
+	////////////////////////////////////////////////////////Constructor\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	public Reimbursement() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 
@@ -107,8 +107,16 @@ public class Reimbursement {
 		this.amount = amount;
 		this.typeNum = reimburseType;
 	}
+	
+	public Reimbursement(String username, int status, int id) {
+		super();
+		this.username = username;
+		this.statusNum = status;
+		this.id = id;
+	}
 
 
+	////////////////////////////////////////////////////////Getters and Setters\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	public int getId() {
 		return id;
 	}
@@ -269,6 +277,7 @@ public class Reimbursement {
 	}
 
 
+	////////////////////////////////////////////////////////To String()\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	@Override
 	public String toString() {
 		return "\nReimbursement [id=" + id + ", fname=" + fname + ", mnane=" + mnane + ", lname=" + lname + ", username="
